@@ -24,11 +24,17 @@ const Display = () => {
   };
 
   const handleSearch = () => {
-    const searchRes = animals.filter((animal) => 
-    animal.breed.toLowerCase().includes(searchInput.toLowerCase())
+    const searchRes = animals.filter((animal) =>
+      animal.breed.toLowerCase().includes(searchInput.toLowerCase())
     );
     setFilteredData(searchRes);
-  }
+  };
+
+  const handleFilter = () => {
+    const sortedArr = [...animals];
+    sortedArr.sort((a, b) => a.price - b.price);
+    setFilteredData(sortedArr);
+  };
 
   return (
     <div className="display">
@@ -42,7 +48,7 @@ const Display = () => {
           <button onClick={handleSearch}>Search</button>
         </div>
         <div className="filter">
-          <button>Filter</button>
+          <button onClick={handleFilter}>Filter</button>
         </div>
       </div>
       <div className="category">
