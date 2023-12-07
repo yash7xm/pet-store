@@ -1,26 +1,53 @@
 nav {
-    display: flex;
-    margin: 1rem;
-    justify-content: space-between;
-    width: 800px;
-    background-color: aliceblue;
-    padding: 1rem;
+  display: flex;
+  margin: 1rem;
+  justify-content: space-between;
+  width: 800px;
+  background-color: aliceblue;
+  padding: 1rem;
+  border-radius: 12px;
 }
 
 .features {
-    display: flex;
-    justify-content: space-between;
-    gap: 3rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 3rem;
 }
 
-.fav, .chats {
-    font-size: 1.2rem;
+.fav,
+.chats {
+  font-size: 1.2rem;
 }
 
 .fav {
-    color: orangered;
+  color: orangered;
 }
 
 .chats {
-    color: steelblue;
+  color: steelblue;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+  text-decoration: none;
+}
+
+.pet-bottom {
+    position: relative;
+}
+
+.fav-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 1rem;
+}
+
+
+@media (max-width: 800px) {
+  nav {
+    width: 100%;
+  }
 }
