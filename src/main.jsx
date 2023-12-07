@@ -5,13 +5,17 @@ import Header from "./Components/Header.jsx";
 import Display from "./Components/Display.jsx";
 import Fav from "./Components/Fav.jsx";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
+import { Provider } from "react-redux";
+import appStore from "./assets/utils/appStore.js";
 
 const App = () => {
   return (
-    <div className="app">
-      <Header />
-      <Outlet />
-    </div>
+    <Provider store={appStore}>
+      <div className="app">
+        <Header />
+        <Outlet />
+      </div>
+    </Provider>
   );
 };
 
@@ -21,14 +25,14 @@ const appRouter = createBrowserRouter([
     element: <App />,
     children: [
       {
-        path: '/',
-        element: <Display />
+        path: "/",
+        element: <Display />,
       },
       {
-        path: '/fav',
-        element: <Fav />
-      }
-    ]
+        path: "/fav",
+        element: <Fav />,
+      },
+    ],
   },
 ]);
 

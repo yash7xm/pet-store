@@ -1,5 +1,6 @@
 const animals = [
   {
+    id: 0,
     species: "Dog",
     breed: "Golden Retriever",
     description: "Friendly and intelligent breed known for its golden coat.",
@@ -8,6 +9,7 @@ const animals = [
     price: 800,
   },
   {
+    id: 1,
     species: "Dog",
     breed: "German Shepherd",
     description:
@@ -17,6 +19,7 @@ const animals = [
     price: 900,
   },
   {
+    id: 2,
     species: "Dog",
     breed: "Labrador Retriever",
     description: "Outgoing, even-tempered, and gentle breed.",
@@ -25,6 +28,7 @@ const animals = [
     price: 750,
   },
   {
+    id: 3,
     species: "Cat",
     breed: "Persian",
     description:
@@ -34,6 +38,7 @@ const animals = [
     price: 600,
   },
   {
+    id: 4,
     species: "Cat",
     breed: "Siamese",
     description: "Talkative and social breed with a striking appearance.",
@@ -42,6 +47,7 @@ const animals = [
     price: 650,
   },
   {
+    id: 5,
     species: "Cat",
     breed: "Maine Coon",
     description: "Gentle giant known for its large size and friendly nature.",
@@ -50,6 +56,7 @@ const animals = [
     price: 700,
   },
   {
+    id: 6,
     species: "Lion",
     breed: "African Lion",
     description:
