@@ -30,7 +30,7 @@ const animals = [
     description:
       "Long-haired breed known for its gentle temperament and expressive face.",
     image:
-      "https://images.pexels.com/photos/3155894/pexels-photo-3155894.jpeg?auto=compress&cs=tinysrgb&w=600",
+      "https://images.unsplash.com/photo-1519052537078-e6302a4968d4?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGNhdHN8ZW58MHwwfDB8fHwy",
     price: 600,
   },
   {
