@@ -1,31 +1,61 @@
 .display {
-    width: 800px;
+  width: 800px;
 }
 
 .sort {
-    display: flex;
-    justify-content: space-between;
-    padding: 0rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  padding: 0rem 1rem;
 }
 
 .search {
-    display: flex;
-    gap: 1rem;
+  display: flex;
+  gap: 1rem;
 }
 
 button {
-    padding: 0.25rem 0.5rem;
+  padding: 0.25rem 0.5rem;
 }
-
 
 .category {
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    margin: 1rem;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin: 1rem;
 }
 
-.category  button {
-    background-color: aliceblue;
-    border-radius: 12px;
+.category button {
+  background-color: aliceblue;
+  border-radius: 12px;
+}
+
+.cards-container {
+  /* display: flex;
+    flex-wrap: wrap; */
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.card {
+  /* width: calc(100%/3); */
+  display: flex;
+  flex-direction: column;
+  background-color: #ccc;
+}
+
+.pet-img {
+  width: 100%;
+}
+
+.pet-img img {
+  width: 100%;
+}
+
+.pet-info {
+  font-size: 0.8rem;
+  padding: 0.5rem;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
