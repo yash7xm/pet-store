@@ -1,0 +1,55 @@
+.auth-wrapper {
+  height: 80vh;
+  width: 800px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.auth {
+  width: 40%;
+  background-color: #1c1c1c;
+  color: white;
+  padding: 1rem;
+  border-radius: 12px;
+}
+
+.heading {
+  text-align: center;
+  font-size: 1.5rem;
+  margin: 1rem;
+}
+
+.uname {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2rem;
+  gap: 0.5rem;
+}
+
+.pass {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.auth label {
+  font-size: 0.8rem;
+}
+
+.auth input {
+  font-size: 1.2rem;
+  padding: 0.5rem;
+  border-radius: 6px;
+  outline: none;
+  border: 1px solid white;
+}
+
+.footer,
+.auth-btn {
+  text-align: center;
+  font-size: 0.8rem;
+  margin: 1rem 5rem;
+  cursor: pointer;
+  border-bottom: 1px solid white;
+}

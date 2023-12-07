@@ -4,12 +4,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { addFav, removeFav } from "../assets/utils/favSlice";
 import { useEffect, useState } from "react";
 
-
 const Card = ({ animals }) => {
   const dispatch = useDispatch();
   const favs = useSelector((store) => store.fav.items);
-  const isFav = favs.some(animal => animal.id === animals.id);
- 
+  const isFav = favs.some((animal) => animal.id === animals.id);
+
   const handleFavClick = () => {
     if (!isFav) {
       dispatch(addFav(animals));
@@ -17,7 +16,7 @@ const Card = ({ animals }) => {
       dispatch(removeFav(animals.id));
     }
   };
-  
+
   return (
     <div className="card">
       <div className="pet-img">
@@ -29,9 +28,11 @@ const Card = ({ animals }) => {
           <div>{animals.breed}</div>
           <div>₹{animals.price}</div>
         </div>
-        <div className="fav-btn" 
-        style = {{color: isFav ? 'red' : 'white'}}
-        onClick={handleFavClick}>
+        <div
+          className="fav-btn"
+          style={{ color: isFav ? "red" : "white" }}
+          onClick={handleFavClick}
+        >
           <FontAwesomeIcon icon={faHeart} />
         </div>
       </div>

@@ -35,17 +35,21 @@ nav {
 }
 
 .pet-bottom {
-    position: relative;
+  position: relative;
 }
 
 .fav-btn {
-    position: absolute;
-    top: 0;
-    right: 0;
-    margin: 1rem;
-    cursor: pointer;
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 1rem;
+  cursor: pointer;
 }
 
+.register {
+  color: #333;
+  text-decoration: none;
+}
 
 @media (max-width: 800px) {
   nav {

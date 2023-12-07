@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import Card from "./Card";
-import '../assets/Styles/Fav.css'
+import "../assets/Styles/Fav.css";
 
 const Fav = () => {
   const favs = useSelector((store) => store.fav.items);

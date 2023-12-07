@@ -22,7 +22,9 @@ const Header = () => {
         <div className="chats">
           <FontAwesomeIcon icon={faMessage} />
         </div>
-        <div className="auth">Log In</div>
+        <Link to="/auth">
+          <div className="register">Log In</div>
+        </Link>
       </div>
     </nav>
   );

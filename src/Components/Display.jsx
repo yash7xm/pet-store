@@ -3,7 +3,6 @@ import "../assets/Styles/Display.css";
 import animals from "../assets/utils/animals";
 import Card from "./Card";
 
-
 const Display = () => {
   const [filteredData, setFilteredData] = useState(animals);
   const [searchInput, setSearchInput] = useState("");

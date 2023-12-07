@@ -11,10 +11,10 @@ const favSlice = createSlice({
       state.items.push(action.payload);
     },
     removeFav: (state, action) => {
-        const idToRemove = action.payload;
-        const newArr = state.items.filter((item) => item.id !== idToRemove);
-        state.items = newArr;
-      },
+      const idToRemove = action.payload;
+      const newArr = state.items.filter((item) => item.id !== idToRemove);
+      state.items = newArr;
+    },
     clear: (state, action) => {
       state.items.length = 0;
     },
