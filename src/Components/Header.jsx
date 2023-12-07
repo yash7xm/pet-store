@@ -9,11 +9,11 @@ const Header = () => {
 
   return (
     <nav>
-      <Link to="/">
+      <Link className="custom-link" to="/">
         <div className="logo">Pet Store</div>
       </Link>
       <div className="features">
-        <Link to="/fav">
+        <Link className="custom-link" to="/fav">
           <div className="fav">
             <FontAwesomeIcon icon={faHeart} />
             {favs.length}
@@ -22,7 +22,7 @@ const Header = () => {
         <div className="chats">
           <FontAwesomeIcon icon={faMessage} />
         </div>
-        <Link to="/auth">
+        <Link className="custom-link" to="/auth">
           <div className="register">Log In</div>
         </Link>
       </div>

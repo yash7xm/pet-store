@@ -11,3 +11,7 @@
   align-items: center;
   width: 100vw;
 }
+
+.custom-link {
+  text-decoration: none;
+}
