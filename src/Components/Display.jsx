@@ -5,6 +5,7 @@ import Card from "./Card";
 
 const Display = () => {
   const [filteredData, setFilteredData] = useState(animals);
+  const [searchInput, setSearchInput] = useState("");
 
   const handleCategory = (type) => {
     console.log(type);
@@ -22,12 +23,23 @@ const Display = () => {
     setFilteredData(newArr);
   };
 
+  const handleSearch = () => {
+    const searchRes = animals.filter((animal) => 
+    animal.breed.toLowerCase().includes(searchInput.toLowerCase())
+    );
+    setFilteredData(searchRes);
+  }
+
   return (
     <div className="display">
       <div className="sort">
         <div className="search">
-          <input type="text" />
-          <button>Search</button>
+          <input
+            type="text"
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
+          />
+          <button onClick={handleSearch}>Search</button>
         </div>
         <div className="filter">
           <button>Filter</button>
