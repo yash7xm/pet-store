@@ -1,0 +1,31 @@
+.display {
+    width: 800px;
+}
+
+.sort {
+    display: flex;
+    justify-content: space-between;
+    padding: 0rem 1rem;
+}
+
+.search {
+    display: flex;
+    gap: 1rem;
+}
+
+button {
+    padding: 0.25rem 0.5rem;
+}
+
+
+.category {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin: 1rem;
+}
+
+.category  button {
+    background-color: aliceblue;
+    border-radius: 12px;
+}
