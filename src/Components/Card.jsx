@@ -10,22 +10,20 @@ const Card = ({ animals }) => {
   const dispatch = useDispatch();
   const favs = useSelector((store) => store.fav.items);
   const isFav = favs.some(animal => animal.id === animals.id);
-
-  useEffect(() => {
-    setColor(isFav);
-  }, [isFav]);
-
   const [color, setColor] = useState(isFav);
 
+  useEffect(() => {
+    const isFav = favs.some(animal => animal.id === animals.id);
+    setColor(isFav);
+  }, [favs]);
+
+ 
   const handleFavClick = () => {
+    setColor(!color);
     if (!color) {
       dispatch(addFav(animals));
-      setColor(true); 
     } else {
-      console.log(animals.id);
       dispatch(removeFav(animals.id));
-      console.log(favs);
-      setColor(false); 
     }
   };
   
