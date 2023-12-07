@@ -9,7 +9,6 @@ const Display = () => {
   const [searchInput, setSearchInput] = useState("");
 
   const handleCategory = (type) => {
-    console.log(type);
     if (type == "All") {
       setFilteredData(animals);
       return;
@@ -20,7 +19,6 @@ const Display = () => {
         newArr.push(animals[i]);
       }
     }
-    console.log(newArr);
     setFilteredData(newArr);
   };
 

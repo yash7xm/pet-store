@@ -6,21 +6,12 @@ import { useEffect, useState } from "react";
 
 
 const Card = ({ animals }) => {
-
   const dispatch = useDispatch();
   const favs = useSelector((store) => store.fav.items);
   const isFav = favs.some(animal => animal.id === animals.id);
-  const [color, setColor] = useState(isFav);
-
-  useEffect(() => {
-    const isFav = favs.some(animal => animal.id === animals.id);
-    setColor(isFav);
-  }, [favs]);
-
  
   const handleFavClick = () => {
-    setColor(!color);
-    if (!color) {
+    if (!isFav) {
       dispatch(addFav(animals));
     } else {
       dispatch(removeFav(animals.id));
@@ -39,7 +30,7 @@ const Card = ({ animals }) => {
           <div>₹{animals.price}</div>
         </div>
         <div className="fav-btn" 
-        style = {{color: color ? 'red' : 'white'}}
+        style = {{color: isFav ? 'red' : 'white'}}
         onClick={handleFavClick}>
           <FontAwesomeIcon icon={faHeart} />
         </div>
