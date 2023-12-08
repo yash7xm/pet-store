@@ -9,8 +9,35 @@ import ExpandPets from "./Components/ExpandPets.jsx";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import { Provider } from "react-redux";
 import appStore from "./assets/utils/appStore.js";
+import { useEffect } from "react";
 
 const App = () => {
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('http://localhost:8080/getData', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ message: 'hello' }),
+        });
+  
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+  
+        console.log('Fine');
+      } catch (error) {
+        console.error('There was a problem with the fetch request:', error);
+      }
+    };
+  
+    fetchData();
+  }, []);
+  
+
   return (
     <Provider store={appStore}>
       <div className="app">

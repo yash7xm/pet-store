@@ -10,6 +10,34 @@ const Auth = () => {
     setRegMode((prevState) => !prevState);
   };
 
+  const handleAuthBtn = async () => {
+    if (username.length == 0) {
+      document.querySelector(".uname input").placeholder =
+        "Enter valid username";
+    }
+    if (password.length == 0) {
+      document.querySelector(".pass input").placeholder =
+        "Enter valid password";
+    }
+    if (username.length != 0 && password.length != 0) {
+      try {
+        const response = await fetch("http://localhost:8080/register", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({username, password}),
+        });
+
+        if (!response.ok) {
+          throw new Error("Did not created the user");
+        } else console.log("created");
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  };
+
   return (
     <div className="auth-wrapper">
       <div className="auth">
@@ -38,7 +66,9 @@ const Auth = () => {
             }}
           />
         </div>
-        <div className="auth-btn">{regMode ? "Register" : "LogIn"}</div>
+        <div className="auth-btn" onClick={handleAuthBtn}>
+          {regMode ? "Register" : "LogIn"}
+        </div>
         <div className="footer" onClick={handleRegisterBtn}>
           {regMode ? "Already a user" : "Create Account"}
         </div>
