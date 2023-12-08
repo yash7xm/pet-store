@@ -8,23 +8,21 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { changeAuthStatus } from "../assets/utils/favSlice";
 
-
 const Header = () => {
   const favs = useSelector((store) => store.fav.items);
   const authStatus = useSelector((store) => store.fav.loggedIn);
   const dispatch = useDispatch();
 
   const handleLogout = () => {
-    Cookies.remove('user_Id');
+    Cookies.remove("user_Id");
     dispatch(changeAuthStatus());
-  }
+  };
 
   useEffect(() => {
-    if(Cookies.get('user_Id')){
+    if (Cookies.get("user_Id")) {
       dispatch(changeAuthStatus());
     }
-  },[])
-
+  }, []);
 
   return (
     <nav>
@@ -38,9 +36,11 @@ const Header = () => {
             <FontAwesomeIcon icon={faHeart} />({favs.length})
           </div>
         </Link>
-        <div className="chats">
-          <FontAwesomeIcon icon={faMessage} />
-        </div>
+        <Link className="custom-link" to='/chat'>
+          <div className="chats">
+            <FontAwesomeIcon icon={faMessage} />
+          </div>
+        </Link>
         <Link
           className="custom-link"
           to={authStatus ? "/" : "/auth"}

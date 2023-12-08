@@ -10,6 +10,7 @@ import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import { Provider } from "react-redux";
 import appStore from "./assets/utils/appStore.js";
 import { useEffect } from "react";
+import Chats from "./Components/Chats.jsx";
 
 const App = () => {
 
@@ -69,6 +70,10 @@ const appRouter = createBrowserRouter([
         path: "/pets/:id/:species/:breed",
         element: <ExpandPets />,
       },
+      {
+        path: "/chat",
+        element: <Chats msg=''/>
+      }
     ],
   },
 ]);
