@@ -1,9 +1,18 @@
 import { useParams } from "react-router-dom";
 import "../assets/Styles/ExpandPets.css";
 import animals from "../assets/utils/animals";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from 'react-router-dom';
 
 const ExpandPets = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
+
+  const goToPrevPage = () => {
+    navigate(-1);
+  }
+
   return (
     <div className="exp-wrapper">
       <div className="exp">
@@ -16,6 +25,9 @@ const ExpandPets = () => {
           <div className="desc">{animals[id].description}</div>
           <div className="price">₹{animals[id].price}</div>
           <button className="enquiry-btn">Enquiry</button>
+          <div className="prev-btn" onClick={goToPrevPage}>
+            <FontAwesomeIcon icon={faTimes} />
+          </div>
         </div>
       </div>
     </div>
