@@ -17,7 +17,7 @@ const App = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:8080/getData', {
+        const response = await fetch('https://pet-store-backend-05kn.onrender.com/getData', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

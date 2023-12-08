@@ -15,7 +15,7 @@ const Auth = () => {
 
   const handleRegisterBtn = async () => {
     try {
-      const checkUser = await fetch("http://localhost:8080/checkUserExist", {
+      const checkUser = await fetch("https://pet-store-backend-05kn.onrender.com/checkUserExist", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -34,7 +34,7 @@ const Auth = () => {
     }
 
     try {
-      const response = await fetch("http://localhost:8080/register", {
+      const response = await fetch("https://pet-store-backend-05kn.onrender.com/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -59,7 +59,7 @@ const Auth = () => {
 
   const handleLogInBtn = async () => {
     try {
-      const response = await fetch("http://localhost:8080/signIn", {
+      const response = await fetch("https://pet-store-backend-05kn.onrender.com/signIn", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
