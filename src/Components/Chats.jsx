@@ -1,9 +1,16 @@
 import React, { useEffect, useState } from "react";
 import "../assets/Styles/Chats.css";
+import animals from "../assets/utils/animals";
+import { useParams } from "react-router-dom";
 
-const Chats = ({ msg }) => {
+const Chats = () => {
   const [messages, setMessages] = useState([]);
   const [inputValue, setInputValue] = useState("");
+  const { id } = useParams();
+  let msg = "";
+  if (id != 100) {
+    msg = `I want to buy ${animals[id].breed} can you tell me about it`;
+  }
   const sampleData = {
     username: "Yash",
     chats: [
@@ -12,7 +19,7 @@ const Chats = ({ msg }) => {
         conversation: [
           {
             sending: true,
-            message: { msg },
+            message: `${ msg }`,
           },
         ],
       },
@@ -21,7 +28,7 @@ const Chats = ({ msg }) => {
         conversation: [
           {
             sending: true,
-            message: { msg },
+            message: `${ msg }`,
           },
         ],
       },
@@ -61,11 +68,9 @@ const Chats = ({ msg }) => {
 
         <div className="chat-section">
           <div className="message-container">
-            {messages.map((message, index) => (
-              <div key={index} className="message received">
-                {message.text}
-              </div>
-            ))}
+            <div className="message sent">
+              {userData.chats[0].conversation[0].message}
+            </div>
           </div>
           <div className="input-section">
             <input

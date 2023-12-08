@@ -71,8 +71,8 @@ const appRouter = createBrowserRouter([
         element: <ExpandPets />,
       },
       {
-        path: "/chat",
-        element: <Chats msg=''/>
+        path: "/chat/:id",
+        element: <Chats />
       }
     ],
   },
