@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { changeAuthStatus } from "../assets/utils/favSlice";
 
-
 const Auth = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -106,6 +105,12 @@ const Auth = () => {
     }
   };
 
+  const handleFooter = () => {
+    setUsername('');
+    setPassword('');
+    setRegMode((prevState) => !prevState); 
+  };
+
   return (
     <div className="auth-wrapper">
       <div className="auth">
@@ -137,10 +142,7 @@ const Auth = () => {
         <div className="auth-btn" onClick={handleAuthBtn}>
           {regMode ? "Register" : "LogIn"}
         </div>
-        <div
-          className="footer"
-          onClick={() => setRegMode((prevState) => !prevState)}
-        >
+        <div className="footer" onClick={handleFooter}>
           {regMode ? "Already a user" : "Create Account"}
         </div>
       </div>
