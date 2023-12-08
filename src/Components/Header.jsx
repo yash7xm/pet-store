@@ -4,7 +4,7 @@ import "../assets/Styles/Header.css";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Cookies from "js-cookie";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { changeAuthStatus } from "../assets/utils/favSlice";
 
@@ -18,6 +18,12 @@ const Header = () => {
     Cookies.remove('user_Id');
     dispatch(changeAuthStatus());
   }
+
+  useEffect(() => {
+    if(Cookies.get('user_Id')){
+      dispatch(changeAuthStatus());
+    }
+  },[])
 
 
   return (
