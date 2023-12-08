@@ -16,7 +16,7 @@ const Header = () => {
         <Link className="custom-link" to="/fav">
           <div className="fav">
             <FontAwesomeIcon icon={faHeart} />
-            {favs.length}
+            ({favs.length})
           </div>
         </Link>
         <div className="chats">
