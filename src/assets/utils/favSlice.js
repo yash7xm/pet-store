@@ -4,6 +4,7 @@ const favSlice = createSlice({
   name: "fav",
   initialState: {
     items: [],
+    loggedIn: false
   },
   reducers: {
     addFav: (state, action) => {
@@ -18,8 +19,11 @@ const favSlice = createSlice({
     clear: (state, action) => {
       state.items.length = 0;
     },
+    changeAuthStatus: (state, action) => {
+      state.loggedIn = !state.loggedIn;
+    }
   },
 });
 
-export const { addFav, removeFav, clear } = favSlice.actions;
+export const { addFav, removeFav, changeAuthStatus } = favSlice.actions;
 export default favSlice.reducer;

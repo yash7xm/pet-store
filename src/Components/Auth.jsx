@@ -1,10 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "../assets/Styles/Auth.css";
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { changeAuthStatus } from "../assets/utils/favSlice";
+
 
 const Auth = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [regMode, setRegMode] = useState(false);
+  const [userId, setUserId] = useState(Cookies.get("user_Id"));
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleRegisterBtn = async () => {
     try {
@@ -35,12 +43,16 @@ const Auth = () => {
         body: JSON.stringify({ username, password }),
       });
 
-      if (!response.ok) {
-        throw new Error("Did not created the user");
-      } else{
-        console.log("created");
-        setRegMode((prevState) => !prevState)
-      } 
+      if (response.ok) {
+        const data = await response.json();
+        Cookies.set("user_Id", data, { expires: 7 });
+        setUserId(Cookies.get("user_Id"));
+        dispatch(changeAuthStatus());
+        navigate(-1);
+      } else {
+        console.log("Failed to register user");
+      }
+      setRegMode((prevState) => !prevState);
     } catch (err) {
       console.log(err);
     }
@@ -56,21 +68,24 @@ const Auth = () => {
         body: JSON.stringify({ username, password }),
       });
 
-      if(!response.ok) {
+      if (!response.ok) {
         document.querySelector(".uname input").value = "";
         document.querySelector(".pass input").value = "";
         document.querySelector(".uname input").placeholder =
           "Invalid username or password";
         return;
+      } else {
+        const data = await response.json();
+        Cookies.set("user_Id", data, { expires: 7 });
+        setUserId(Cookies.get("user_Id"));
+        setRegMode((prevState) => !prevState);
+        dispatch(changeAuthStatus());
+        navigate(-1);
       }
-      else {
-        setRegMode((prevState) => !prevState)
-      }
+    } catch (err) {
+      console.log("login error");
     }
-    catch (err) {
-      console.log('login error');
-    }
-  }
+  };
 
   const handleAuthBtn = async () => {
     if (username.length == 0) {
