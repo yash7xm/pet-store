@@ -30,7 +30,7 @@ const Auth = () => {
         return;
       }
     } catch (err) {
-      console.log("error in check user exist");
+      console.log("error in check User exist");
     }
 
     try {
