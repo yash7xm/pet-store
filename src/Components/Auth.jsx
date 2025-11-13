@@ -1,153 +1,155 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "../assets/Styles/Auth.css";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { changeAuthStatus } from "../assets/utils/favSlice";
 
+const BACKEND_URL = "http://localhost:8000/api/auth";
+
 const Auth = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [regMode, setRegMode] = useState(false);
-  const [userId, setUserId] = useState(Cookies.get("user_Id"));
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [role, setRole] = useState("buyer");
+    const [regMode, setRegMode] = useState(false);
+    const [errorMsg, setErrorMsg] = useState("");
 
-  const handleRegisterBtn = async () => {
-    try {
-      const checkUser = await fetch("https://pet-store-backend-05kn.onrender.com/checkUserExist", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ username }),
-      });
-      if (checkUser.ok) {
-        document.querySelector(".uname input").value = "";
-        document.querySelector(".pass input").value = "";
-        document.querySelector(".uname input").placeholder =
-          "username already exist";
-        return;
-      }
-    } catch (err) {
-      console.log("error in check User exist");
-    }
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
 
-    try {
-      const response = await fetch("https://pet-store-backend-05kn.onrender.com/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ username, password }),
-      });
+    const handleRegister = async () => {
+        setErrorMsg("");
 
-      if (response.ok) {
+        const response = await fetch(`${BACKEND_URL}/signup`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, password, role }),
+        });
+
         const data = await response.json();
-        Cookies.set("user_Id", data, { expires: 7 });
-        setUserId(Cookies.get("user_Id"));
-        dispatch(changeAuthStatus());
-        navigate(-1);
-      } else {
-        console.log("Failed to register user");
-      }
-      setRegMode((prevState) => !prevState);
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
-  const handleLogInBtn = async () => {
-    try {
-      const response = await fetch("https://pet-store-backend-05kn.onrender.com/signIn", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ username, password }),
-      });
+        if (!response.ok) {
+            setErrorMsg(data.error || "Registration failed");
+            return;
+        }
 
-      if (!response.ok) {
-        document.querySelector(".uname input").value = "";
-        document.querySelector(".pass input").value = "";
-        document.querySelector(".uname input").placeholder =
-          "Invalid username or password";
-        return;
-      } else {
+        const loginRes = await fetch(`${BACKEND_URL}/signin`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, password }),
+        });
+
+        const loginData = await loginRes.json();
+
+        if (loginRes.ok) {
+            Cookies.set("jwt", loginData.data, { expires: 7 });
+            dispatch(changeAuthStatus());
+            navigate("/");
+        } else {
+            setErrorMsg("Registered, but login failed");
+        }
+    };
+
+    const handleLogin = async () => {
+        setErrorMsg("");
+
+        const response = await fetch(`${BACKEND_URL}/signin`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, password }),
+        });
+
         const data = await response.json();
-        Cookies.set("user_Id", data, { expires: 7 });
-        setUserId(Cookies.get("user_Id"));
-        setRegMode((prevState) => !prevState);
+
+        if (!response.ok) {
+            setErrorMsg(data.error || "Invalid email or password");
+            return;
+        }
+
+        Cookies.set("jwt", data.data, { expires: 7 });
+
         dispatch(changeAuthStatus());
-        navigate(-1);
-      }
-    } catch (err) {
-      console.log("login error");
-    }
-  };
+        navigate("/");
+    };
 
-  const handleAuthBtn = async () => {
-    if (username.length == 0) {
-      document.querySelector(".uname input").placeholder =
-        "Enter valid username";
-    }
-    if (password.length == 0) {
-      document.querySelector(".pass input").placeholder =
-        "Enter valid password";
-    }
+    const handleAuth = () => {
+        if (!email || !password) {
+            setErrorMsg("Email & Password required");
+            return;
+        }
 
-    if (username.length != 0 && password.length != 0) {
-      if (document.querySelector(".auth-btn").textContent === "Register") {
-        handleRegisterBtn();
-      } else {
-        handleLogInBtn();
-      }
-    }
-  };
+        if (regMode) handleRegister();
+        else handleLogin();
+    };
 
-  const handleFooter = () => {
-    setUsername('');
-    setPassword('');
-    setRegMode((prevState) => !prevState); 
-  };
+    return (
+        <div className="auth-wrapper">
+            <div className="auth">
+                <div className="heading">{regMode ? "Register" : "Login"}</div>
 
-  return (
-    <div className="auth-wrapper">
-      <div className="auth">
-        <div className="heading">{regMode ? "Register" : "LogIn"}</div>
-        <div className="uname">
-          <label htmlFor="username">Username</label>
-          <input
-            type="text"
-            placeholder="Enter your username"
-            id="username"
-            value={username}
-            onChange={(e) => {
-              setUsername(e.target.value);
-            }}
-          />
+                {/* EMAIL */}
+                <div className="uname">
+                    <label htmlFor="email">Email</label>
+                    <input
+                        type="text"
+                        placeholder="Enter email"
+                        id="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
+                </div>
+
+                {/* PASSWORD */}
+                <div className="pass">
+                    <label htmlFor="password">Password</label>
+                    <input
+                        type="password"
+                        placeholder="Enter password"
+                        id="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
+                </div>
+
+                {/* ROLE SELECTOR (only for registration) */}
+                {regMode && (
+                    <div className="role">
+                        <label>User Type:</label>
+                        <select
+                            value={role}
+                            onChange={(e) => setRole(e.target.value)}
+                        >
+                            <option value="buyer">Buyer</option>
+                            <option value="seller">Seller</option>
+                        </select>
+                    </div>
+                )}
+
+                {/* ERROR MESSAGE */}
+                {errorMsg && <p className="error">{errorMsg}</p>}
+
+                {/* MAIN BUTTON */}
+                <div className="auth-btn" onClick={handleAuth}>
+                    {regMode ? "Register" : "Login"}
+                </div>
+
+                {/* FOOTER SWITCH */}
+                <div
+                    className="footer"
+                    onClick={() => {
+                        setRegMode(!regMode);
+                        setErrorMsg("");
+                        setEmail("");
+                        setPassword("");
+                    }}
+                >
+                    {regMode
+                        ? "Already have an account? Login"
+                        : "Create an Account"}
+                </div>
+            </div>
         </div>
-        <div className="pass">
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            placeholder="Enter your password"
-            id="password"
-            value={password}
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
-          />
-        </div>
-        <div className="auth-btn" onClick={handleAuthBtn}>
-          {regMode ? "Register" : "LogIn"}
-        </div>
-        <div className="footer" onClick={handleFooter}>
-          {regMode ? "Already a user" : "Create Account"}
-        </div>
-      </div>
-    </div>
-  );
+    );
 };
 
 export default Auth;
