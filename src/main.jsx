@@ -12,27 +12,24 @@ import appStore from "./assets/utils/appStore.js";
 import { useEffect } from "react";
 import Chats from "./Components/Chats.jsx";
 import PostPet from "./Components/PostPet.jsx";
+import { BACKEND_URL } from "./config.js";
 
 const App = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(
-                    "https://pet-store-backend-05kn.onrender.com/getData",
-                    {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                        body: JSON.stringify({ message: "hello" }),
-                    }
-                );
+                const response = await fetch(`${BACKEND_URL}/info`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                });
 
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
                 }
 
-                console.log("Fine");
+                console.log("Backend is alive");
             } catch (error) {
                 console.error(
                     "There was a problem with the fetch request:",
