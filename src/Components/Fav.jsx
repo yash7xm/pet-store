@@ -5,7 +5,7 @@ import Card from "./Card";
 import "../assets/Styles/Fav.css";
 import { setFavorites, removeFav } from "../assets/utils/favSlice";
 
-const BACKEND_URL = "http://localhost:8000/api";
+const BACKEND_URL = "https://storex-hf5s.onrender.com/api";
 
 const Fav = () => {
     const dispatch = useDispatch();

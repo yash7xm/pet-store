@@ -2,7 +2,7 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "../assets/Styles/ExpandPets.css";
 
-const BACKEND_URL = "http://localhost:8000/api";
+const BACKEND_URL = "https://storex-hf5s.onrender.com/api";
 
 const ExpandPets = () => {
     const { id } = useParams();

@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { changeAuthStatus } from "../assets/utils/favSlice";
 
-const BACKEND_URL = "http://localhost:8000/api/auth";
+const BACKEND_URL = "https://storex-hf5s.onrender.com/api/auth";
 
 const Auth = () => {
     const [email, setEmail] = useState("");

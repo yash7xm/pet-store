@@ -5,7 +5,7 @@ import { addFav, removeFav } from "../assets/utils/favSlice";
 import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
 
-const BACKEND_URL = "http://localhost:8000/api";
+const BACKEND_URL = "https://storex-hf5s.onrender.com/api";
 
 const Card = ({ animals }) => {
     const dispatch = useDispatch();

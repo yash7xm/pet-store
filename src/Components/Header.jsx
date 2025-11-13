@@ -7,7 +7,7 @@ import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 import { changeAuthStatus, setFavorites } from "../assets/utils/favSlice";
 
-const BACKEND_URL = "http://localhost:8000/api";
+const BACKEND_URL = "https://storex-hf5s.onrender.com/api";
 
 const Header = () => {
     const favs = useSelector((store) => store.fav.items);
@@ -85,11 +85,11 @@ const Header = () => {
                     </div>
                 </Link>
 
-                <Link className="custom-link" to="/chat/100">
+                {/* <Link className="custom-link" to="/chat/100">
                     <div className="chats">
                         <FontAwesomeIcon icon={faMessage} />
                     </div>
-                </Link>
+                </Link> */}
 
                 {authStatus && userRole === "seller" && (
                     <Link className="custom-link" to="/post-pet">

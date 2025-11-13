@@ -3,7 +3,7 @@ import "../assets/Styles/PostPet.css";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 
-const BACKEND_URL = "http://localhost:8000/api";
+const BACKEND_URL = "https://storex-hf5s.onrender.com/api";
 
 const PostPet = () => {
     const navigate = useNavigate();
