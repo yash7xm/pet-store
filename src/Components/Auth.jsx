@@ -43,7 +43,7 @@ const Auth = () => {
 
         if (loginRes.ok) {
             Cookies.set("jwt", loginData.data.token, { expires: 7 });
-            dispatch(changeAuthStatus());
+            dispatch(changeAuthStatus(true));
             navigate("/");
         } else {
             setErrorMsg("Registered, but login failed");
@@ -68,7 +68,7 @@ const Auth = () => {
 
         Cookies.set("jwt", data.data.token, { expires: 7 });
 
-        dispatch(changeAuthStatus());
+        dispatch(changeAuthStatus(true));
         navigate("/");
     };
 

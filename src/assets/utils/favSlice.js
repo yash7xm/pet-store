@@ -2,7 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const favSlice = createSlice({
     name: "fav",
-    initialState: { items: [] },
+    initialState: {
+        items: [],
+        loggedIn: false,
+    },
 
     reducers: {
         addFav(state, action) {
@@ -14,11 +17,15 @@ const favSlice = createSlice({
             );
         },
         setFavorites(state, action) {
-            state.items = action.payload; // load from backend
+            state.items = action.payload;
         },
-        changeAuthStatus(state) {
-            // optional: clear favorites when logging out
-            state.items = [];
+
+        // IMPORTANT FIX
+        changeAuthStatus(state, action) {
+            state.loggedIn = action.payload; // true or false
+            if (!action.payload) {
+                state.items = []; // clear favorites when logging out
+            }
         },
     },
 });

@@ -51,6 +51,21 @@ nav {
   text-decoration: none;
 }
 
+.post-btn {
+  background-color: #31c231;
+  padding: 6px 14px;
+  border-radius: 6px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.post-btn:hover {
+  background-color: #28a928;
+}
+
+
 @media (max-width: 800px) {
   nav {
     width: 100%;
