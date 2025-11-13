@@ -1,40 +1,85 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 import "../assets/Styles/ExpandPets.css";
-import animals from "../assets/utils/animals";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
+
+const BACKEND_URL = "http://localhost:8000/api";
 
 const ExpandPets = () => {
-  const { id } = useParams();
-  const navigate = useNavigate();
+    const { id } = useParams(); // MongoDB _id
+    const navigate = useNavigate();
 
-  const goToPrevPage = () => {
-    navigate(-1);
-  };
+    const [pet, setPet] = useState(null);
+    const [loading, setLoading] = useState(true);
 
-  return (
-    <div className="exp-wrapper">
-      <div className="exp">
-        <div className="main-img">
-          <img src={animals[id].image} alt="" />
+    const goToPrevPage = () => navigate(-1);
+
+    // Fetch pet by ID
+    const fetchPet = async () => {
+        try {
+            const res = await fetch(`${BACKEND_URL}/pets/${id}`);
+            const data = await res.json();
+
+            if (res.ok) {
+                setPet(data.data); // backend sends `data`
+            }
+        } catch (err) {
+            console.log("Error fetching pet:", err);
+        }
+        setLoading(false);
+    };
+
+    useEffect(() => {
+        fetchPet();
+    }, []);
+
+    if (loading) return <h2 className="loading">Loading...</h2>;
+
+    if (!pet) return <h2 className="error">Pet not found or removed.</h2>;
+
+    return (
+        <div className="exp-wrapper">
+            <div className="exp">
+                {/* MAIN IMAGE */}
+                <div className="main-img">
+                    <img src={pet.images?.[0]} alt={pet.breed} />
+                </div>
+
+                {/* INFO SECTION */}
+                <div className="info">
+                    <div className="species">{pet.species}</div>
+                    <div className="breed">{pet.breed}</div>
+
+                    {pet.age && <div className="age">Age: {pet.age} years</div>}
+
+                    {pet.gender && (
+                        <div className="gender">Gender: {pet.gender}</div>
+                    )}
+
+                    {pet.location && (
+                        <div className="location">
+                            Location: {pet.location.city}, {pet.location.state}
+                        </div>
+                    )}
+
+                    <div className="desc">{pet.description}</div>
+                    <div className="price">₹{pet.price}</div>
+
+                    {/* ENQUIRY BUTTON */}
+                    <Link
+                        className="custom-link"
+                        to={`/chat/${pet.postedBy?._id}`}
+                    >
+                        <button className="enquiry-btn">Enquiry</button>
+                    </Link>
+
+                    {/* CLOSE BUTTON */}
+                    <div className="prev-btn" onClick={goToPrevPage}>
+                        ✕
+                    </div>
+                </div>
+            </div>
         </div>
-        <div className="info">
-          <div className="species">{animals[id].species}</div>
-          <div className="breed">{animals[id].breed}</div>
-          <div className="desc">{animals[id].description}</div>
-          <div className="price">₹{animals[id].price}</div>
-          <Link className="custom-link" to={`/chat/${animals[id].id}`}>
-            <button className="enquiry-btn">Enquiry</button>
-          </Link>
-          <div className="prev-btn" onClick={goToPrevPage}>
-            <FontAwesomeIcon icon={faTimes} />
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+    );
 };
 
 export default ExpandPets;
