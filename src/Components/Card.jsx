@@ -4,8 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addFav, removeFav } from "../assets/utils/favSlice";
 import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
-
-const BACKEND_URL = "https://storex-hf5s.onrender.com/api";
+import { BACKEND_URL } from "../config";
 
 const Card = ({ animals }) => {
     const dispatch = useDispatch();

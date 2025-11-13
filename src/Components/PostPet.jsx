@@ -2,8 +2,7 @@ import { useState, useEffect } from "react";
 import "../assets/Styles/PostPet.css";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
-
-const BACKEND_URL = "https://storex-hf5s.onrender.com/api";
+import { BACKEND_URL } from "../config";
 
 const PostPet = () => {
     const navigate = useNavigate();

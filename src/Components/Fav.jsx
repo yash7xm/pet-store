@@ -4,8 +4,7 @@ import Cookies from "js-cookie";
 import Card from "./Card";
 import "../assets/Styles/Fav.css";
 import { setFavorites, removeFav } from "../assets/utils/favSlice";
-
-const BACKEND_URL = "https://storex-hf5s.onrender.com/api";
+import { BACKEND_URL } from "../config";
 
 const Fav = () => {
     const dispatch = useDispatch();

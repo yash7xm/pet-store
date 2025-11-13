@@ -4,8 +4,7 @@ import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { changeAuthStatus } from "../assets/utils/favSlice";
-
-const BACKEND_URL = "https://storex-hf5s.onrender.com/api/auth";
+import { BACKEND_URL } from "../config";
 
 const Auth = () => {
     const [email, setEmail] = useState("");
@@ -20,7 +19,7 @@ const Auth = () => {
     const handleRegister = async () => {
         setErrorMsg("");
 
-        const response = await fetch(`${BACKEND_URL}/signup`, {
+        const response = await fetch(`${BACKEND_URL}/auth/signup`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email, password, role }),
@@ -33,7 +32,7 @@ const Auth = () => {
             return;
         }
 
-        const loginRes = await fetch(`${BACKEND_URL}/signin`, {
+        const loginRes = await fetch(`${BACKEND_URL}/auth/signin`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email, password }),
@@ -53,7 +52,7 @@ const Auth = () => {
     const handleLogin = async () => {
         setErrorMsg("");
 
-        const response = await fetch(`${BACKEND_URL}/signin`, {
+        const response = await fetch(`${BACKEND_URL}/auth/signin`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email, password }),

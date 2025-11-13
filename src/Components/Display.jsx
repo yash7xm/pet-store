@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import "../assets/Styles/Display.css";
 import Card from "./Card";
-
-const BACKEND_URL = "https://storex-hf5s.onrender.com/api";
+import { BACKEND_URL } from "../config";
 
 const Display = () => {
     const [pets, setPets] = useState([]);

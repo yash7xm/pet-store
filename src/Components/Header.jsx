@@ -6,8 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 import { changeAuthStatus, setFavorites } from "../assets/utils/favSlice";
-
-const BACKEND_URL = "https://storex-hf5s.onrender.com/api";
+import { BACKEND_URL } from "../config";
 
 const Header = () => {
     const favs = useSelector((store) => store.fav.items);
