@@ -5,7 +5,7 @@ import "../assets/Styles/ExpandPets.css";
 const BACKEND_URL = "http://localhost:8000/api";
 
 const ExpandPets = () => {
-    const { id } = useParams(); // MongoDB _id
+    const { id } = useParams();
     const navigate = useNavigate();
 
     const [pet, setPet] = useState(null);

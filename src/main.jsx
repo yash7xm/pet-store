@@ -13,71 +13,75 @@ import { useEffect } from "react";
 import Chats from "./Components/Chats.jsx";
 
 const App = () => {
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await fetch(
+                    "https://pet-store-backend-05kn.onrender.com/getData",
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({ message: "hello" }),
+                    }
+                );
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('https://pet-store-backend-05kn.onrender.com/getData', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ message: 'hello' }),
-        });
-  
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-  
-        console.log('Fine');
-      } catch (error) {
-        console.error('There was a problem with the fetch request:', error);
-      }
-    };
-  
-    fetchData();
-  }, []);
-  
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
 
-  return (
-    <Provider store={appStore}>
-      <div className="app">
-        <Header />
-        <Outlet />
-      </div>
-    </Provider>
-  );
+                console.log("Fine");
+            } catch (error) {
+                console.error(
+                    "There was a problem with the fetch request:",
+                    error
+                );
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    return (
+        <Provider store={appStore}>
+            <div className="app">
+                <Header />
+                <Outlet />
+            </div>
+        </Provider>
+    );
 };
 
 const appRouter = createBrowserRouter([
-  {
-    path: "/",
-    element: <App />,
-    children: [
-      {
+    {
         path: "/",
-        element: <Display />,
-      },
-      {
-        path: "/fav",
-        element: <Fav />,
-      },
-      {
-        path: "/auth",
-        element: <Auth />,
-      },
-      {
-        path: "/pets/:id/:species/:breed",
-        element: <ExpandPets />,
-      },
-      {
-        path: "/chat/:id",
-        element: <Chats />
-      }
-    ],
-  },
+        element: <App />,
+        children: [
+            {
+                path: "/",
+                element: <Display />,
+            },
+            {
+                path: "/favorites",
+                element: <Fav />,
+            },
+            {
+                path: "/auth",
+                element: <Auth />,
+            },
+            {
+                path: "/pets/:id/:species/:breed",
+                element: <ExpandPets />,
+            },
+            {
+                path: "/chat/:id",
+                element: <Chats />,
+            },
+        ],
+    },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <RouterProvider router={appRouter} />
+    <RouterProvider router={appRouter} />
 );
