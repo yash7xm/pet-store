@@ -42,7 +42,7 @@ const Auth = () => {
         const loginData = await loginRes.json();
 
         if (loginRes.ok) {
-            Cookies.set("jwt", loginData.data, { expires: 7 });
+            Cookies.set("jwt", loginData.data.token, { expires: 7 });
             dispatch(changeAuthStatus());
             navigate("/");
         } else {
@@ -66,7 +66,7 @@ const Auth = () => {
             return;
         }
 
-        Cookies.set("jwt", data.data, { expires: 7 });
+        Cookies.set("jwt", data.data.token, { expires: 7 });
 
         dispatch(changeAuthStatus());
         navigate("/");

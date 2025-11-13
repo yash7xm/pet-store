@@ -3,47 +3,87 @@ import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { addFav, removeFav } from "../assets/utils/favSlice";
 import { Link } from "react-router-dom";
+import Cookies from "js-cookie";
+
+const BACKEND_URL = "http://localhost:8000/api";
 
 const Card = ({ animals }) => {
-  const dispatch = useDispatch();
-  const favs = useSelector((store) => store.fav.items);
-  const isFav = favs.some((animal) => animal.id === animals.id);
+    const dispatch = useDispatch();
+    const favs = useSelector((store) => store.fav.items);
 
-  const handleFavClick = (event) => {
-    event.preventDefault();
-    if (!isFav) {
-      dispatch(addFav(animals));
-    } else {
-      dispatch(removeFav(animals.id));
-    }
-  };
+    // Check if this pet is already in user's favorite list
+    const isFav = favs.some((pet) => pet._id === animals._id);
 
-  return (
-    <Link
-      className="custom-link"
-      to={`/pets/${animals.id}/${animals.species}/${animals.breed}`}
-    >
-      <div className="card">
-        <div className="pet-img">
-          <img src={animals.image} alt="" />
-        </div>
-        <div className="pet-bottom">
-          <div className="pet-info">
-            <div>{animals.species}</div>
-            <div>{animals.breed}</div>
-            <div>₹{animals.price}</div>
-          </div>
-          <div
-            className="fav-btn"
-            style={{ color: isFav ? "red" : "white" }}
-            onClick={handleFavClick}
-          >
-            <FontAwesomeIcon icon={faHeart} />
-          </div>
-        </div>
-      </div>
-    </Link>
-  );
+    const handleFavClick = async (e) => {
+        e.preventDefault(); // prevent navigation when heart is clicked
+
+        const token = Cookies.get("jwt");
+        if (!token) {
+            alert("Please login to add favorites");
+            return;
+        }
+
+        if (!isFav) {
+            // ➤ ADD TO FAVORITES
+            const res = await fetch(`${BACKEND_URL}/favorites/${animals._id}`, {
+                method: "POST",
+                headers: {
+                    "x-access-token": token,
+                },
+            });
+
+            if (res.ok) {
+                dispatch(addFav(animals));
+            }
+        } else {
+            // ➤ REMOVE FROM FAVORITES
+            const res = await fetch(`${BACKEND_URL}/favorites/${animals._id}`, {
+                method: "DELETE",
+                headers: {
+                    "x-access-token": token,
+                },
+            });
+
+            if (res.ok) {
+                dispatch(removeFav(animals._id));
+            }
+        }
+    };
+
+    return (
+        <Link
+            className="custom-link"
+            to={`/pets/${animals._id}/${animals.species}/${animals.breed}`}
+        >
+            <div className="card">
+                {/* PET IMAGE */}
+                <div className="pet-img">
+                    <img src={animals.images?.[0]} alt={animals.breed} />
+                </div>
+
+                {/* BOTTOM INFO */}
+                <div className="pet-bottom">
+                    <div className="pet-info">
+                        <div>{animals.species}</div>
+                        <div>{animals.breed}</div>
+                        <div>₹{animals.price}</div>
+                    </div>
+
+                    {/* FAVORITE BUTTON */}
+                    <div
+                        className="fav-btn"
+                        onClick={handleFavClick}
+                        style={{
+                            color: isFav ? "red" : "white",
+                            cursor: "pointer",
+                        }}
+                    >
+                        <FontAwesomeIcon icon={faHeart} />
+                    </div>
+                </div>
+            </div>
+        </Link>
+    );
 };
 
 export default Card;
