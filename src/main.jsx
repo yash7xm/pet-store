@@ -11,6 +11,7 @@ import { Provider } from "react-redux";
 import appStore from "./assets/utils/appStore.js";
 import { useEffect } from "react";
 import Chats from "./Components/Chats.jsx";
+import PostPet from "./Components/PostPet.jsx";
 
 const App = () => {
     useEffect(() => {
@@ -77,6 +78,10 @@ const appRouter = createBrowserRouter([
             {
                 path: "/chat/:id",
                 element: <Chats />,
+            },
+            {
+                path: "/post-pet",
+                element: <PostPet />,
             },
         ],
     },
